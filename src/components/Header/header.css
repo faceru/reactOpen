@@ -1,0 +1,14 @@
+header {
+    padding: 3% 0;
+}
+
+header h1 {
+    text-align: center;
+}
+
+header ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    place-content: space-evenly;
+}

@@ -1,0 +1,9 @@
+.wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.wrapper img {
+    width: 100%;
+    min-height: 300px;
+}

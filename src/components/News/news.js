@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 import {news} from '../../storeLOL';
-class News extends Component{
+import './news.css';
+const News = () =>{
     
-    render(){
-        return(
-            <section>
+    
+    return(
+        <section>
+            <div className="container">
                 {news.map(({id, h1, description, preview}) => (
-                    <Link key={id} to={`/news/:${id}`} >
+                    <Link key={id} to={`/news/:${id}`}  className="news-item">
                         <img src={`/img/${preview}`} alt={h1}/>
                         <h1>{h1}</h1>
                         <p>{description}</p>
                     </Link>
                 ))}
-            </section>
-        );
-    }
+            </div>
+            
+        </section>
+    );
 }
+
 export default News;

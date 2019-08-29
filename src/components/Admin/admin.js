@@ -1,17 +1,41 @@
 import React, {Component} from 'react';
 import {news} from '../../storeLOL';
+import './admin.css'
 
 class Admin extends Component{
     state={
-        id:news.length+1,
-        h1:'',
-        h2:'',
-        description:'',
-        preview:'',
-        detail:'',
-        content:'',
+        form:{
+            id: +this.props.match.params.id.match(/\d+$/g)[0],
+            h1:'',
+            h2:'',
+            description:'',
+            preview:'',
+            detail:'',
+            content:'',
+        },
+        success:'',    
     }
-    
+
+    componentDidMount(){
+        const id =  +this.props.match.params.id.match(/\d+$/g)[0];
+        const findObj = news.findIndex(x=> x.id === id);
+        if(findObj >= 0){
+            this.setState({
+                form:{
+                    id: id,
+                    h1:news[findObj].h1,
+                    h2:news[findObj].h2,
+                    description:news[findObj].description,
+                    preview:news[findObj].preview,
+                    detail:news[findObj].detail,
+                    content:news[findObj].content,
+                }
+                
+            })
+        }
+        
+    }
+
     h1 = React.createRef();
     h2 = React.createRef();
     description = React.createRef();
@@ -19,24 +43,54 @@ class Admin extends Component{
     detail = React.createRef();
     content = React.createRef();
 
-    handlerChange = ({target:{value,name}}) =>{
+    handlerChange = () =>{
+        const id =  +this.props.match.params.id.match(/\d+$/g)[0];
         this.setState({
-            h1:this.h1.current.value,
-            h2:this.h2.current.value,
-            description:this.description.current.value,
-            preview:this.preview.current.value,
-            detail:this.detail.current.value,
-            content:this.content.current.value,
+            form:{
+                id: id,
+                h1:this.h1.current.value,
+                h2:this.h2.current.value,
+                description:this.description.current.value,
+                preview:this.preview.current.value,
+                detail:this.detail.current.value,
+                content:this.content.current.value,
+            },
+            
         })
+        
     }
+
     handleClick = (e) =>{
         e.preventDefault();
-        news.push(this.state);  
+        const id = this.props.match.params.id.match(/\d+$/g);
+        let findItem = news.findIndex(x => x.id === +id[0]);
+        if(findItem < 0){
+
+            news.push(this.state.form);
+        
+        }else{
+            let ourNew = news[findItem];
+            const {h1, h2, description, preview, detail, content} = this.state.form;
+            ourNew.h1 = h1;
+            ourNew.h2 = h2;
+            ourNew.description = description;
+            ourNew.preview = preview;
+            ourNew.detail = detail;
+            ourNew.content = content;
+        }
+        this.setState({
+            success:'Успешное сохранение'
+        })
+        setTimeout(()=>(
+            this.setState({
+                success:''
+            })
+        ), 1000)  
     }
 
     render(){
-        console.log(this.state);
-        const {h1, h2, description, preview, detail, content} = this.state;
+        
+        const {h1, h2, description, preview, detail, content} = this.state.form;
         return(
             <section>
                 <form>
@@ -48,6 +102,10 @@ class Admin extends Component{
                     <textarea ref={this.content} name="content" placeholder="Содержимое" value={content} onChange={this.handlerChange}/>
                     <button onClick={this.handleClick}>Сохранить</button>
                 </form>
+                <div style={{textAlign:'center', color:'green'}}>
+                    <p>{this.state.success}</p>
+                    
+                </div>
             </section>
         );
     }

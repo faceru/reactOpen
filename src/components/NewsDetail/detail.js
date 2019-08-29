@@ -1,5 +1,6 @@
 import React from 'react';
 import {news} from '../../storeLOL';
+import './detail.css';
 
 const Detail = (props) =>{
     const id = props.match.params.id.match(/\d+$/g);
