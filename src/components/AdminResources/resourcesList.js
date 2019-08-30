@@ -17,8 +17,18 @@ class ResourcesList extends Component{
             news:news,
         })
     }
-    
+    getNewId = () =>{
+        if(news.length > 0){
+           return Math.max.apply(Math, news.map((o) => { return o.id; })) + 1
+        }else{
+            return 1
+        }
+        
+    }
+        
+        
     render(){
+        
         return (
             <section>
                 <nav>
@@ -36,7 +46,7 @@ class ResourcesList extends Component{
                     </ul>
                 </nav>
                 <div className='new-resource'>
-                    <Link to={`admin/:${news.length+1}`}>
+                    <Link to={`admin/:${this.getNewId()}`}>
                         Create New
                     </Link>
                 </div>

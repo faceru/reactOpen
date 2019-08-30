@@ -30,7 +30,7 @@ class Admin extends Component{
                     detail:news[findObj].detail,
                     content:news[findObj].content,
                 }
-                
+
             })
         }
         
@@ -55,7 +55,6 @@ class Admin extends Component{
                 detail:this.detail.current.value,
                 content:this.content.current.value,
             },
-            
         })
         
     }
