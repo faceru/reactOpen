@@ -7,6 +7,7 @@ import News from './components/News/news';
 import Detail from './components/NewsDetail/detail';
 import ResourcesList from './components/AdminResources/resourcesList'
 import Error from './components/404/error';
+import NewResource from './components/New/new'
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 ReactDOM.render((
@@ -17,6 +18,7 @@ ReactDOM.render((
                 <Route path="/admin/:id" component={Admin} />
                 <Route exact path="/news" component={News} />
                 <Route path="/news/:id" component={Detail} />
+                <Route path="/newresource" component={NewResource} />
                 <Route path='*' component={Error} />
             </Switch>
         </App>
