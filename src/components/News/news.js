@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {news} from '../../storeLOL';
+import {connect} from 'react-redux'
 import './news.css';
-const News = () =>{
+const News = (props) =>{
     
-    
+    const {news} = props
     return(
         <section>
             <div className="container">
@@ -21,4 +21,6 @@ const News = () =>{
     );
 }
 
-export default News;
+export default connect(state =>({
+    news: state.news,
+}))(News);

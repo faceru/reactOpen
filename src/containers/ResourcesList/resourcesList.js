@@ -1,26 +1,22 @@
 import React, {Component} from 'react';
-import {news} from '../../storeLOL';
 import {Link} from 'react-router-dom';
-import './resourcesList.css'
-
+import './resourcesList.css';
+import {connect} from 'react-redux';
+import {deleteNew} from '../../actions/newsActions'
 class ResourcesList extends Component{
-    state={
-        news:news,
-    }
+    
 
     handleDelete = (e) =>{
-        e.preventDefault();
+         e.preventDefault();
         const id = e.target.getAttribute('data-src');
-        const arrayIndex = news.findIndex(x => x.id === +id);
-        news.splice(arrayIndex, 1);
-        this.setState({
-            news:news,
-        })
+        const {deleteNew} = this.props;
+        deleteNew(+id);
     }
    
         
     render(){
         
+        const {news} = this.props;
         return (
             <section>
                 <nav>
@@ -49,4 +45,6 @@ class ResourcesList extends Component{
     
 }
 
-export default ResourcesList;
+export default connect(state =>({
+    news: state.news,
+}), {deleteNew})(ResourcesList);

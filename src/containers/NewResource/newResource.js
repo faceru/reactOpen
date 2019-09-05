@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import Form from '../Form/form';
-import { news } from '../../storeLOL';
+import Form from '../../components/Form/form';
+import {connect} from 'react-redux';
+import {createNew} from '../../actions/newsActions'
 
 class NewResource extends Component{
     getNewId = () =>{
+        const {news} = this.props;
         if(news.length > 0){
             return  Math.max.apply(Math, news.map((o) => { return o.id; })) + 1
         } else{
@@ -49,8 +51,9 @@ class NewResource extends Component{
     }
     handleClick = (e) =>{
         e.preventDefault();
- 
-        news.push(this.state.form);  
+        const {id, h1, h2, description, preview, detail, content} = this.state.form;
+        const {createNew} = this.props;
+        createNew(id, h1, h2, description, preview, detail, content);
     }
     render(){
         
@@ -81,4 +84,6 @@ class NewResource extends Component{
         )
     }
 }
-export default NewResource;
+export default connect(state =>({
+    news: state.news,
+}), {createNew})(NewResource);

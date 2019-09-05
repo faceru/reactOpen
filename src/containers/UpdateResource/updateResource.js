@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {news} from '../../storeLOL';
-import Form from '../Form/form';
-
-class Admin extends Component{
+import Form from '../../components/Form/form';
+import {connect} from 'react-redux'
+import {updateNew} from '../../actions/newsActions'
+class UpdateResource extends Component{
     state={
         form:{
             id: +this.props.match.params.id.match(/\d+$/g)[0],
@@ -17,6 +17,7 @@ class Admin extends Component{
     }
 
     componentDidMount(){
+        const {news} = this.props;
         const id =  +this.props.match.params.id.match(/\d+$/g)[0];
         const findObj = news.findIndex(x=> x.id === id);
         this.setState({
@@ -59,17 +60,12 @@ class Admin extends Component{
 
     handleClick = (e) =>{
         e.preventDefault();
-        const id = this.props.match.params.id.match(/\d+$/g);
-        let findItem = news.findIndex(x => x.id === +id[0]);
-        let ourNew = news[findItem];
-        
+        const {updateNew} = this.props;
         const {h1, h2, description, preview, detail, content} = this.state.form;
-        ourNew.h1 = h1;
-        ourNew.h2 = h2;
-        ourNew.description = description;
-        ourNew.preview = preview;
-        ourNew.detail = detail;
-        ourNew.content = content;
+        const id = +this.props.match.params.id.match(/\d+$/g)[0];
+        updateNew(id, h1, h2, description, preview, detail, content);
+        
+        
         
         this.setState({
             success:'Успешное сохранение'
@@ -110,4 +106,6 @@ class Admin extends Component{
         );
     }
 }
-export default Admin;
+export default connect(state =>({
+    news: state.news,
+}), {updateNew})(UpdateResource);
