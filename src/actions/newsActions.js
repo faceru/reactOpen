@@ -1,6 +1,6 @@
 import { DELETE_NEW, CREATE_NEW, UPDATE_NEW } from '../constants';
 
-export const deleteNew = (id,) => ({
+export const deleteNew = (id) => ({
   type: DELETE_NEW,
   id,
 });

@@ -1,13 +1,17 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import './resourcesList.css';
 import {connect} from 'react-redux';
 import {deleteNew} from '../../actions/newsActions'
-class ResourcesList extends Component{
+import { Button } from '@material-ui/core';
+
+
+
+class ResourcesList extends PureComponent{
     
 
     handleDelete = (e) =>{
-         e.preventDefault();
+        e.preventDefault();
         const id = e.target.getAttribute('data-src');
         const {deleteNew} = this.props;
         deleteNew(+id);
@@ -24,7 +28,7 @@ class ResourcesList extends Component{
                         {news.map(({id,h1})=>(
                             <li key = {id}>
                                 <div className="resource">
-                                    <Link to={`admin/:${id}`}>{`(${id}) ${h1}`}</Link>
+                                    <Link to={`admin/${id}`}>{`(${id}) ${h1}`}</Link>
                                     <button data-src={id} style={{display:'block',margin:'10px 0 20px 0'}} onClick={this.handleDelete}>
                                         Delete
                                     </button>
@@ -34,9 +38,10 @@ class ResourcesList extends Component{
                     </ul>
                 </nav>
                 <div className='new-resource'>
-                    <Link to={`/newresource`}>
-                        Create New
-                    </Link>
+                    <Button variant="contained" color="primary" component={Link} to="/newresource">
+                            Create New
+                    </Button>
+                    
                 </div>
                 
             </section>

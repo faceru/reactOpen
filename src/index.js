@@ -2,30 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import UpdateResource from './containers/UpdateResource/updateResource';
-import News from './components/News/news';
-import Detail from './components/NewsDetail/detail';
-import ResourcesList from './containers/ResourcesList/resourcesList'
-import Error from './components/404/error';
-import NewResource from './containers/NewResource/newResource'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
 import { Provider } from 'react-redux';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: purple,
+        secondary: green,
+    },
+    status: {
+        danger: 'orange',
+    },
+});
+
 ReactDOM.render((
     <Provider store={store}>
-        <BrowserRouter>
-            <App>
-                <Switch>
-                    <Route exact path="/admin" component={ResourcesList} />
-                    <Route path="/admin/:id" component={UpdateResource} />
-                    <Route exact path="/news" component={News} />
-                    <Route path="/news/:id" component={Detail} />
-                    <Route path="/newresource" component={NewResource} />
-                    <Route path='*' component={Error} />
-                </Switch>
-            </App>
-        </BrowserRouter>
+        <MuiThemeProvider theme={theme}>
+            <HashRouter>
+                <App/>
+            </HashRouter>
+        </MuiThemeProvider>
+        
     </Provider>
     
 ), document.getElementById('root'));
