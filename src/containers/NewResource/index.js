@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import CustomForm from 'components/Form';
 import {connect} from 'react-redux';
-import {createNew} from 'actions/newsActions'
-
+import {createNew} from 'actions/news/newsActions'
 class NewResource extends PureComponent{
     getNewId = () =>{
         const {news} = this.props;

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import CustomForm from 'components/Form';
 import {connect} from 'react-redux';
-import {updateNew} from 'actions/newsActions';
+import {updateNew} from 'actions/news/newsActions';
 
 class UpdateResource extends PureComponent{
     

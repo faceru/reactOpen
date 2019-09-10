@@ -2,24 +2,21 @@ import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import './resourcesList.css';
 import {connect} from 'react-redux';
-import {deleteNew} from '../../actions/newsActions'
+import {deleteNew, fetchNews} from '../../actions/news/newsActions'
 import { Button } from '@material-ui/core';
-
-
 
 class ResourcesList extends PureComponent{
     
 
-    handleDelete = (e) =>{
-        e.preventDefault();
-        const id = e.target.getAttribute('data-src');
-        const {deleteNew} = this.props;
-        deleteNew(+id);
+    handleDelete = (id) =>{
+        this.props.deleteNew(+id);
     }
-   
+    componentDidMount(){
+        this.props.fetchNews()
+    }
         
     render(){
-        
+        console.log(this.props);
         const {news} = this.props;
         return (
             <section>
@@ -29,7 +26,7 @@ class ResourcesList extends PureComponent{
                             <li key = {id}>
                                 <div className="resource">
                                     <Link to={`admin/${id}`}>{`(${id}) ${h1}`}</Link>
-                                    <button data-src={id} style={{display:'block',margin:'10px 0 20px 0'}} onClick={this.handleDelete}>
+                                    <button data-src={id} style={{display:'block',margin:'10px 0 20px 0'}} onClick={() => this.handleDelete(id)}>
                                         Delete
                                     </button>
                                 </div>  
@@ -52,4 +49,4 @@ class ResourcesList extends PureComponent{
 
 export default connect(state =>({
     news: state.news,
-}), {deleteNew})(ResourcesList);
+}), {deleteNew, fetchNews})(ResourcesList);

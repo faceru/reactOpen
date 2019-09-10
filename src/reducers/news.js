@@ -1,37 +1,13 @@
-import { DELETE_NEW, CREATE_NEW, UPDATE_NEW } from '../constants';
+import { DELETE_NEW, CREATE_NEW, UPDATE_NEW, RECEIVE_NEWS } from '../constants';
 
 const initialState = [
-    {
-        id:1,
-        h1:'Привет',
-        h2:'Мир',
-        description:'123123',
-        content:'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-        detail:'name.jpg',
-        preview: 'bigName.jpg'
-    },
-    {
-        id:2,
-        h1:'Привет1',
-        h2:'Мир',
-        description:'123123',
-        content:'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-        detail:'name.jpg',
-        preview: 'bigName.jpg'
-    },
-    {
-        id:3,
-        h1:'Привет2',
-        h2:'Мир',
-        description:'123123',
-        content:'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-        detail:'name.jpg',
-        preview: 'bigName.jpg'
-    },
+    
 ];
 
-const news = (state = initialState, { id, h1, h2, description, preview, detail, content, type }) => {
+const news = (state = initialState, { id, h1, h2, description, preview, detail, content, type, news}) => {
   switch (type) {
+    case RECEIVE_NEWS:
+      return news
     case DELETE_NEW :
       return [
         ...state.filter(item => (item.id !== id))

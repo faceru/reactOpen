@@ -1,22 +1,11 @@
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware} from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers/index';
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './actions/news/newsSaga'
 
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers =
-  process.env.NODE_ENV !== 'production' &&
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
-/* eslint-enable */
+const sagaMiddleware = createSagaMiddleware()
 
-const configureStore = preloadedState => (
-  createStore(
-    rootReducer,
-    preloadedState,
-    composeEnhancers(),
-  )
-);
-
-const store = configureStore({});
-
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+sagaMiddleware.run(rootSaga)
 export default store;

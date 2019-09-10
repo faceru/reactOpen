@@ -1,4 +1,4 @@
-import { DELETE_NEW, CREATE_NEW, UPDATE_NEW } from '../constants';
+import { DELETE_NEW, CREATE_NEW, UPDATE_NEW, FETCH_NEWS, RECEIVE_NEWS } from '../../constants';
 
 export const deleteNew = (id) => ({
   type: DELETE_NEW,
@@ -26,3 +26,5 @@ export const updateNew = (id, h1, h2, description, preview, detail, content) => 
     content,
 
 });
+export const fetchNews = () => ({type:FETCH_NEWS});
+export const receiveNews = news => ({type:RECEIVE_NEWS, news})
